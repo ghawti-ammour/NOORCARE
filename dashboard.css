@@ -1,0 +1,379 @@
+/* Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px 0;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.visible {
+    transform: translateX(0);
+}
+
+.logo {
+    padding: 0 20px 30px;
+    border-bottom: 1px solid #34495e;
+    margin-bottom: 20px;
+}
+
+.logo h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav li {
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.main-nav li i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.main-nav li:hover,
+.main-nav li.active {
+    background-color: #34495e;
+    border-left: 4px solid #3498db;
+}
+
+.main-nav li.active {
+    font-weight: 500;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 0;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+/* Profile Menu */
+.profile-menu {
+    position: relative;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.profile-trigger:hover {
+    background-color: #e9ecef;
+}
+
+.profile-image {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-weight: 600;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    min-width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.profile-dropdown.show {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.dropdown-item i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: #e9ecef;
+    margin: 5px 0;
+}
+
+/* Dashboard Content */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.8rem;
+}
+
+.date-navigation {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-icon {
+    background: none;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #6c757d;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+/* Appointments List */
+.appointments-list {
+    display: grid;
+    gap: 20px;
+}
+
+.appointment-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.appointment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.patient-info {
+    display: flex;
+    align-items: center;
+}
+
+.patient-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #6c757d;
+    overflow: hidden;
+}
+
+.patient-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.patient-details h3 {
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+}
+
+.patient-details p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.appointment-time {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.appointment-details {
+    margin-bottom: 15px;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #6c757d;
+    width: 120px;
+    flex-shrink: 0;
+}
+
+.detail-value {
+    color: #2c3e50;
+}
+
+.appointment-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.btn-outline {
+    background: white;
+    border: 1px solid #dee2e6;
+    color: #495057;
+}
+
+.btn-outline:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+.btn-primary {
+    background-color: #1976d2;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1565c0;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 70px;
+        overflow: hidden;
+    }
+    
+    .sidebar .logo h2,
+    .sidebar .main-nav span {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 70px;
+    }
+    
+    .main-nav li {
+        justify-content: center;
+        padding: 15px 0;
+    }
+    
+    .main-nav i {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .date-navigation {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

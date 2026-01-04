@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard - NOORCARE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        /* Patient-specific styles */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .quick-action-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .quick-action-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .quick-action-card i {
+            font-size: 2rem;
+            color: #3b82f6;
+            margin-bottom: 10px;
+        }
+        
+        .appointments-section, .prescriptions-section, .test-results-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container" id="patientDashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>NOORCARE</h2>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="active" data-section="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li data-section="appointments">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Appointments</span>
+                    </li>
+                    <li data-section="prescriptions">
+                        <i class="fas fa-prescription"></i>
+                        <span>Prescriptions</span>
+                    </li>
+                    <li data-section="test-results">
+                        <i class="fas fa-flask"></i>
+                        <span>Test Results</span>
+                    </li>
+                    <li data-section="medical-history">
+                        <i class="fas fa-notes-medical"></i>
+                        <span>Medical History</span>
+                    </li>
+                    <li data-section="find-doctors">
+                        <i class="fas fa-user-md"></i>
+                        <span>Find Doctors</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="profile-menu" id="profileTrigger">
+                    <div class="profile-info">
+                        <span id="userName">Patient Name</span>
+                        <small>Patient</small>
+                    </div>
+                    <div class="profile-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <a href="#" class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <h1>Welcome back, <span id="patientName">Patient</span>!</h1>
+                <p class="text-gray-600">Here's what's happening with your health today.</p>
+                
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="quick-action-card" id="bookAppointment">
+                        <i class="fas fa-calendar-plus"></i>
+                        <h3>Book Appointment</h3>
+                        <p>Schedule a new doctor's appointment</p>
+                    </div>
+                    <div class="quick-action-card" id="viewPrescriptions">
+                        <i class="fas fa-prescription"></i>
+                        <h3>Prescriptions</h3>
+                        <p>View and manage your medications</p>
+                    </div>
+                    <div class="quick-action-card" id="testResults">
+                        <i class="fas fa-flask"></i>
+                        <h3>Test Results</h3>
+                        <p>View your latest lab results</p>
+                    </div>
+                    <div class="quick-action-card" id="findDoctors">
+                        <i class="fas fa-search"></i>
+                        <h3>Find Doctors</h3>
+                        <p>Search and book specialists</p>
+                    </div>
+                </div>
+                
+                <!-- Upcoming Appointments -->
+                <div class="appointments-section">
+                    <div class="section-header">
+                        <h2>Upcoming Appointments</h2>
+                        <button class="btn btn-primary" id="viewAllAppointments">View All</button>
+                    </div>
+                    <div class="appointments-list" id="upcomingAppointments">
+                        <!-- Will be populated by JavaScript -->
+                        <p>No upcoming appointments. Book one now!</p>
+                    </div>
+                </div>
+                
+                <!-- Recent Prescriptions -->
+                <div class="prescriptions-section">
+                    <div class="section-header">
+                        <h2>Recent Prescriptions</h2>
+                        <button class="btn btn-primary" id="viewAllPrescriptions">View All</button>
+                    </div>
+                    <div class="prescriptions-list" id="recentPrescriptions">
+                        <!-- Will be populated by JavaScript -->
+                        <p>No recent prescriptions found.</p>
+                    </div>
+                </div>
+                
+                <!-- Test Results -->
+                <div class="test-results-section">
+                    <div class="section-header">
+                        <h2>Recent Test Results</h2>
+                        <button class="btn btn-primary" id="viewAllTestResults">View All</button>
+                    </div>
+                    <div class="test-results-list" id="recentTestResults">
+                        <!-- Will be populated by JavaScript -->
+                        <p>No recent test results available.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="patient-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOORCARE - Your Health is Our Priority</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <img src="assets/logo.png" alt="NOORCARE Logo" id="logo">
+            <h1 data-i18n="title">NOORCARE</h1>
+        </div>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <header>
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">EN</option>
+                    <option value="ar">العربية</option>
+                    <option value="fr">FR</option>
+                </select>
+            </div>
+        </header>
+
+        <main>
+            <div class="hero">
+                <h1 class="title" data-i18n="title">NOORCARE</h1>
+                <p class="subtitle" data-i18n="subtitle">Your health is our priority</p>
+                
+                <div class="auth-buttons">
+                    <button class="btn primary" id="openSignIn" data-i18n="signIn">Sign In</button>
+                    <button class="btn secondary" id="openSignUp" data-i18n="signUp">Sign Up</button>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Sign Up Modal -->
+        <div id="signUpModal" class="modal-overlay">
+            <div class="neumorphic-card">
+                <button class="close-modal">&times;</button>
+                
+                <h2 class="form-title" data-i18n="signUp">Sign Up</h2>
+                <p class="form-subtitle">Create your account to continue</p>
+
+                <form id="registrationForm">
+                    <div class="profile-pic-container">
+                        <label for="profileInput" class="neu-profile-label" id="profileLabel">
+                            <i class="fas fa-camera"></i>
+                            <input type="file" id="profileInput" accept="image/*" style="display:none;">
+                        </label>
+                        <span style="font-size: 0.7rem; color: #718096;">Add Photo (Optional)</span>
+                    </div>
+
+                    <div class="neu-input-group">
+                        <i class="far fa-user"></i>
+                        <input type="text" placeholder="Full Name" data-i18n="fullName" required>
+                    </div>
+
+                    <div class="neu-row">
+                        <div class="neu-input-group">
+                            <i class="fas fa-calendar-alt"></i>
+                            <input type="number" placeholder="Age" min="1" required>
+                        </div>
+                        <div class="neu-input-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" placeholder="Phone Number" required>
+                        </div>
+                    </div>
+
+                    <div class="neu-input-group">
+                        <i class="far fa-envelope"></i>
+                        <input type="email" placeholder="Email Address" required>
+                    </div>
+
+                    <div class="neu-input-group">
+                        <i class="fas fa-user-tag"></i>
+                        <select id="roleSelect" required>
+                            <option value="" disabled selected>Select Role</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="hospital">Hospital</option>
+                            <option value="pharmacy">Pharmacy</option>
+                            <option value="laboratoire">Laboratoire</option>
+                            <option value="patient">Patient</option>
+                        </select>
+                    </div>
+
+                    <div class="neu-row">
+                        <div class="neu-input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Password" required>
+                        </div>
+                        <div class="neu-input-group">
+                            <i class="fas fa-check-circle"></i>
+                            <input type="password" placeholder="Confirm" required>
+                        </div>
+                    </div>
+
+                    <button type="button" id="sendVerificationCode" class="neu-btn-submit" style="margin-top: 20px;">Send Verification Code</button>
+                    
+                    <!-- Verification Code Input (initially hidden) -->
+                    <div id="verificationSection" style="display: none; margin-top: 20px;">
+                        <div class="neu-input-group">
+                            <i class="fas fa-shield-alt"></i>
+                            <input type="text" id="verificationCode" placeholder="Enter verification code" required>
+                        </div>
+                        <p id="verificationMessage" style="font-size: 0.8rem; color: #666; margin: 5px 0 15px;">We've sent a 6-digit code to your email</p>
+                        <button type="submit" class="neu-btn-submit" id="verifyAndSignUp" style="width: 100%;">Verify & Sign Up</button>
+                    </div>
+                </form>
+
+                <div class="divider-text">OR CONTINUE WITH</div>
+
+                <div class="neu-social-group">
+                    <button type="button" class="neu-social-btn"><i class="fab fa-google"></i></button>
+                    <button type="button" class="neu-social-btn"><i class="fab fa-facebook"></i></button>
+                    <button type="button" class="neu-social-btn"><i class="fab fa-twitter"></i></button>
+                </div>
+
+                <p class="footer-text">Already have an account? <span class="switch-to-signin">Sign In</span></p>
+            </div>
+        </div>
+
+        <!-- Sign In Modal -->
+        <div id="signInModal" class="modal-overlay">
+            <div class="neumorphic-card">
+                <button class="close-modal">&times;</button>
+                
+                <h2 class="form-title">Sign In</h2>
+                <p class="form-subtitle">Welcome back! Please sign in to continue</p>
+
+                <form id="loginForm">
+                    <div id="loginMessage" class="alert-message" style="display: none; margin-bottom: 20px;"></div>
+                    
+                    <div class="neu-input-group">
+                        <i class="far fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+
+                    <div class="neu-input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+
+                    <div class="form-footer">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="remember" checked>
+                            <span class="checkmark"></span>
+                            <span>Remember me</span>
+                        </label>
+
+                        <a href="#" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn primary full-width">
+                        <span class="btn-text">Sign In</span>
+                        <span class="btn-loader" style="display: none;">Signing in...</span>
+                    </button>
+
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+
+                    <p class="switch-form">
+                        Don't have an account? <a href="#" class="switch-to-signup">Sign Up</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Dashboard (initially hidden) -->
+    <div id="doctorDashboard" class="dashboard-container" style="display: none;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>NOORCARE</h2>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="active" data-section="appointments">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Appointments</span>
+                    </li>
+                    <li data-section="patients">
+                        <i class="fas fa-users"></i>
+                        <span>Patients</span>
+                    </li>
+                    <li data-section="schedule">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Schedule</span>
+                    </li>
+                    <li data-section="prescriptions">
+                        <i class="fas fa-prescription"></i>
+                        <span>Prescriptions</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="profile-menu">
+                    <div class="profile-trigger" id="profileTrigger">
+                        <img src="" alt="Profile" id="profileImage" class="profile-image">
+                        <span id="userName">Dr. User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="#" class="dropdown-item" id="profileLink">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                        <a href="#" class="dropdown-item" id="settingsLink">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <a href="#" class="dropdown-item" id="helpLink">
+                            <i class="fas fa-question-circle"></i> Help
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" id="logoutLink">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <div class="dashboard-header">
+                    <h1>Today's Appointments</h1>
+                    <div class="date-navigation">
+                        <button class="btn-icon" id="prevDay"><i class="fas fa-chevron-left"></i></button>
+                        <span id="currentDate">Monday, January 4, 2026</span>
+                        <button class="btn-icon" id="nextDay"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Appointments List -->
+                <div class="appointments-list" id="appointmentsList">
+                    <!-- Appointments will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="work.js" type="module"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
